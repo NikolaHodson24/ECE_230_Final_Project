@@ -31,7 +31,7 @@ module stopwatch(
     
     DFlipFlop flip_one(
         .clock(clk),
-        .D(y1),
+        .D(res ? 1'b0 : y1),
         .reset(rst),
         .Q(q[0]),
         .enable(en) 
@@ -47,7 +47,7 @@ module stopwatch(
     
     DFlipFlop flip_two(
         .clock(clk),
-        .D(y2),
+        .D(res ? 1'b0 : y2),
         .reset(rst),
         .Q(q[1]),
         .enable(en)  
@@ -63,7 +63,7 @@ module stopwatch(
     
     DFlipFlop flip_three(
         .clock(clk),
-        .D(y3),
+        .D(res ? 1'b0 : y3),
         .reset(rst),
         .Q(q[2]),
         .enable(en)  
@@ -72,14 +72,14 @@ module stopwatch(
     full_adder add_four(
         .A(q[3]),
         .B(1'b0),
-        .Y(y3),
-        .carry_in(carry2),
+        .Y(y4),
+        .carry_in(carry3),
         .carry_out(carry4)
     );
     
     DFlipFlop flip_four(
         .clock(clk),
-        .D(y3),
+        .D(res ? 1'b0 : y4),
         .reset(rst),
         .Q(q[3]),
         .enable(en)  
@@ -95,7 +95,7 @@ module stopwatch(
     
     DFlipFlop flip_five(
         .clock(clk),
-        .D(y5),
+        .D(res ? 1'b0 : y5),
         .reset(rst),
         .Q(q[4]),
         .enable(en)  
@@ -111,7 +111,7 @@ module stopwatch(
     
     DFlipFlop flip_six(
         .clock(clk),
-        .D(y6),
+        .D(res ? 1'b0 : y6),
         .reset(rst),
         .Q(q[5]),
         .enable(en)  
