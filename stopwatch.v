@@ -81,7 +81,7 @@ module stopwatch(
         .clock(clk),
         .D(y3),
         .reset(rst),
-        .Q(q[2]),
+        .Q(q[3]),
         .enable(en)  
     );
 
