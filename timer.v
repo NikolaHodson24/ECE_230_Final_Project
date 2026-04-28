@@ -12,16 +12,16 @@ wire D[5:0];
 wire Q[5:0];
 wire isZero;
 
-wire enable = en & ~isZero;
-
 assign isZero = (~Q[0] & ~Q[1] & ~Q[2] & ~Q[3] & ~Q[4] & ~Q[5]) & ~load;
 
-assign D[0] = load ? load_value[0] : ~Q[0] ; //Q0 toggles every clock cycle
-assign D[1] = load ? load_value[1] : Q[1] ^ ~Q[0] ; //Q1 toggles when Q0 = 0.
-assign D[2] = load ? load_value[2] : Q[2] ^ (~Q[0] & ~Q[1]); //Q2 toggles when Q0 = 0 and Q1 = 0
-assign D[3] = load ? load_value[3] : Q[3] ^ (~Q[0] & ~Q[1] & ~Q[2]);
-assign D[4] = load ? load_value[4] : Q[4] ^ (~Q[0] & ~Q[1] & ~Q[2] & ~Q[3]);
-assign D[5] = load ? load_value[5] : Q[5] ^ (~Q[0] & ~Q[1] & ~Q[2] & ~Q[3] & ~Q[4]);
+assign D[0] = load ? load_value[0] : (~Q[0]) ; //Q0 toggles every clock cycle
+assign D[1] = load ? load_value[1] : (Q[1] ^ ~Q[0]) ; //Q1 toggles when Q0 = 0.
+assign D[2] = load ? load_value[2] : (Q[2] ^ (~Q[0] & ~Q[1])); //Q2 toggles when Q0 = 0 and Q1 = 0
+assign D[3] = load ? load_value[3] : (Q[3] ^ (~Q[0] & (~Q[1] & ~Q[2])));
+assign D[4] = load ? load_value[4] : (Q[4] ^ (~Q[0] & ( ~Q[1] & (~Q[2] & ~Q[3]))));
+assign D[5] = load ? load_value[5] : (Q[5] ^ (~Q[0] & (~Q[1] & (~Q[2] & (~Q[3] & ~Q[4])))));
+
+assign enable = (en & ~isZero) | load;
 
 DFlipFlop flip0(
     .D(D[0]),
